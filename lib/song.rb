@@ -1,13 +1,18 @@
 require_relative "../config/environment.rb"
 require 'active_support/inflector'
 
+
+## Use column names from database to create attr_accessors
 class Song
 
-
+  # We need to first get the class as a string "Song", downcase "song",
+  # Then .pluralrize from 'active_support/inflector' 'songs'. Bam, table name.
   def self.table_name
     self.to_s.downcase.pluralize
   end
 
+
+  # PRAGMA table_info(<table name>) => returns hash with column ids, names, types, 
   def self.column_names
     DB[:conn].results_as_hash = true
 
